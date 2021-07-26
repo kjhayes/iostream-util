@@ -13,7 +13,7 @@ struct JSONFormatting {
 
 class IJSONWriteable {
 public:
-    virtual void WriteJSON(std::ostream& ostr, JSONFormatting formatting, const bool& is_last = false) const = 0;
+    virtual void WriteJSON(std::ostream& ostr, JSONFormatting formatting) const = 0;
 };
 
 }

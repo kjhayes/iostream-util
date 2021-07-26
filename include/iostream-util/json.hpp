@@ -7,7 +7,7 @@ namespace iou {
 //static 
 class JSON {
 public:
-    static void WriteJSONObject(std::ostream& ostr, const char* name, const IJSONWriteable& obj, JSONFormatting formatting) {
+    static void WriteJSONObject(std::ostream& ostr, const char* name, const IJSONWriteable& obj, JSONFormatting formatting, const bool& is_last = false) {
         for(int i = 0; i < formatting.spacing; i++){ostr<<std::endl;}
         for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
         ostr<<"\""<<name<<"\": {";
@@ -17,6 +17,7 @@ public:
         if(formatting.increase_object_element_depth){formatting.depth--;}
         for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
         ostr<<"}";
+        if(!is_last){ostr<<", ";}
         if(!formatting.write_objects_inline){ostr<<std::endl;}
     }
     static void WriteJSONString(std::ostream& ostr, const char* name, const char* string, JSONFormatting formatting, const bool& is_last = false) {
