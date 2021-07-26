@@ -7,7 +7,7 @@ namespace iou {
 class IBinaryReadable {
 public:
     //Loads This Instance From A Binary Stream, returns 0 on success, 1 on failure
-    virtual int ReadFromBinaryStream(std::ostream& ostr, std::ostream& err = std::cerr) = 0;
+    virtual int ReadFromBinaryStream(std::istream& istr, std::ostream& err = std::cerr) = 0;
 };
 }
 
