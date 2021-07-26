@@ -43,6 +43,14 @@ public:
         if(!formatting.write_objects_inline){ostr<<std::endl;}
     }
     template<class T>
+    static void WriteJSONStreamed(std::ostream& ostr, const char* name, const T& streamed, JSONFormatting formatting, const bool& is_last = false) {
+        for(int i = 0; i < formatting.spacing; i++){ostr<<std::endl;}
+        for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
+        ostr<<"\""<<name<<"\": "<<streamed;
+        if(!is_last){ostr<<", ";}
+        if(!formatting.write_objects_inline){ostr<<std::endl;}
+    }
+    template<class T>
     static void WriteJSONHexString(std::ostream& ostr, const char* name, const T& hex_num, JSONFormatting formatting, const bool& is_last = false) {
         for(int i = 0; i < formatting.spacing; i++){ostr<<std::endl;}
         for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
