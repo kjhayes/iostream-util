@@ -83,58 +83,77 @@ public:
 
 
     static void WriteJSONArrayObject(std::ostream& ostr, const IJSONWriteable& obj, JSONFormatting formatting, const bool& is_last = false) {
-        for(int i = 0; i < formatting.spacing; i++){ostr<<std::endl;}
-        for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
-        if(!formatting.write_arrays_inline){ostr<<std::endl;}
-        if(formatting.increase_array_element_depth){formatting.depth++;}
-        obj.WriteJSON(ostr, formatting);
-        if(formatting.increase_array_element_depth){formatting.depth--;}
-        for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
+        if(!formatting.write_arrays_inline){
+            for(int i = 0; i < formatting.spacing; i++){ostr<<std::endl;}
+            for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
+            if(formatting.increase_array_element_depth){formatting.depth++;}
+            obj.WriteJSON(ostr, formatting);
+            if(formatting.increase_array_element_depth){formatting.depth--;}
+            for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
+        }
+        else{
+            bool temp = formatting.write_objects_inline;
+            formatting.write_objects_inline = false;
+            obj.WriteJSON(ostr, formatting, true)
+            formatting.write_objects_inline = temp;
+        }
         if(!is_last){ostr<<", ";}
         if(!formatting.write_arrays_inline){ostr<<std::endl;}
     }
     static void WriteJSONArrayString(std::ostream& ostr, const char* string, JSONFormatting formatting, const bool& is_last = false) {
-        for(int i = 0; i < formatting.spacing; i++){ostr<<std::endl;}
-        for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
+        if(!formatting.write_arrays_inline){
+            for(int i = 0; i < formatting.spacing; i++){ostr<<std::endl;}
+            for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
+        }
         ostr<<"\""<<string<<"\"";
         if(!is_last){ostr<<", ";}
         if(!formatting.write_arrays_inline){ostr<<std::endl;}
     }
     template<class T>
     static void WriteJSONArrayUnsigned(std::ostream& ostr, const T& unsigned_number, JSONFormatting formatting, const bool& is_last = false) {
-        for(int i = 0; i < formatting.spacing; i++){ostr<<std::endl;}
-        for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
+        if(!formatting.write_arrays_inline){
+            for(int i = 0; i < formatting.spacing; i++){ostr<<std::endl;}
+            for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
+        }
         ostr<<((uintmax_t)unsigned_number);
         if(!is_last){ostr<<", ";}
         if(!formatting.write_arrays_inline){ostr<<std::endl;}
     }
     template<class T>
     static void WriteJSONArraySigned(std::ostream& ostr, const T& signed_number, JSONFormatting formatting, const bool& is_last = false) {
-        for(int i = 0; i < formatting.spacing; i++){ostr<<std::endl;}
-        for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
+        if(!formatting.write_arrays_inline){
+            for(int i = 0; i < formatting.spacing; i++){ostr<<std::endl;}
+            for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
+        }
         ostr<<((intmax_t)signed_number);
         if(!is_last){ostr<<", ";}
         if(!formatting.write_arrays_inline){ostr<<std::endl;}
     }
     template<class T>
     static void WriteJSONArrayNumber(std::ostream& ostr, const T& streamed, JSONFormatting formatting, const bool& is_last = false) {
-        for(int i = 0; i < formatting.spacing; i++){ostr<<std::endl;}
-        for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
+        if(!formatting.write_arrays_inline){
+            for(int i = 0; i < formatting.spacing; i++){ostr<<std::endl;}
+            for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
+        }
         ostr<<streamed;
         if(!is_last){ostr<<", ";}
         if(!formatting.write_arrays_inline){ostr<<std::endl;}
     }
     template<class T>
     static void WriteJSONArrayHex(std::ostream& ostr, const T& hex_num, JSONFormatting formatting, const bool& is_last = false) {
-        for(int i = 0; i < formatting.spacing; i++){ostr<<std::endl;}
-        for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
+        if(!formatting.write_arrays_inline){
+            for(int i = 0; i < formatting.spacing; i++){ostr<<std::endl;}
+            for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
+        }
         ostr<<"\"0x"<<std::hex<<((uintmax_t)hex_num)<<std::dec<<"\"";
         if(!is_last){ostr<<", ";}
         if(!formatting.write_arrays_inline){ostr<<std::endl;}
     }
     static void BeginWriteJSONArrayStringStreamed(std::ostream& ostr, JSONFormatting formatting){
-        for(int i = 0; i < formatting.spacing; i++){ostr<<std::endl;}
-        for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
+        if(!formatting.write_arrays_inline){
+            for(int i = 0; i < formatting.spacing; i++){ostr<<std::endl;}
+            for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
+        }
         ostr<<"\"";
     }
     static void EndWriteJSONArrayStringStreamed(std::ostream& ostr, JSONFormatting formatting, const bool& is_last = false){
@@ -143,8 +162,10 @@ public:
         if(!formatting.write_arrays_inline){ostr<<std::endl;}
     }
     static void BeginWriteJSONArrayArray(std::ostream& ostr, JSONFormatting formatting){
-        for(int i = 0; i < formatting.spacing; i++){ostr<<std::endl;}
-        for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
+        if(!formatting.write_arrays_inline){
+            for(int i = 0; i < formatting.spacing; i++){ostr<<std::endl;}
+            for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
+        }
         ostr<<"[";
     }
     static void EndWriteJSONArrayArray(std::ostream& ostr, JSONFormatting formatting, const bool& is_last = false){
