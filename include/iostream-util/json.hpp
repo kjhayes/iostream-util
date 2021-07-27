@@ -73,6 +73,7 @@ public:
         for(int i = 0; i < formatting.spacing; i++){ostr<<std::endl;}
         for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
         ostr<<"\""<<name<<"\": [";
+        if(!formatting.write_arrays_inline){ostr<<std::endl;}
     }
     static void EndWriteJSONArray(std::ostream& ostr, JSONFormatting formatting, const bool& is_last = false){
         ostr<<"]";
