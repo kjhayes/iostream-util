@@ -5,7 +5,7 @@
 
 namespace iou {
 struct JSONFormatting {
-    int spacing = 1;
+    int spacing = 0;
     int depth = 0;
     bool write_objects_inline = false;
     bool increase_object_element_depth = true;
