@@ -9,6 +9,8 @@ struct JSONFormatting {
     int depth = 0;
     bool write_objects_inline = false;
     bool increase_object_element_depth = true;
+    bool write_arrays_inline = false;
+    bool increase_array_element_depth = true;
 };
 
 class IJSONWriteable {
