@@ -1,5 +1,5 @@
-#ifndef CFDUMP_STREAMREADER_HPP
-#define CFDUMP_STREAMREADER_HPP
+#ifndef IOSTREAMUTIL_STREAMREAD_HPP
+#define IOSTREAMUTIL_STREAMREAD_HPP
 
 #include<iostream>
 #include<stdint.h>
