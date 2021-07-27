@@ -110,7 +110,7 @@ public:
         else{
             bool temp = formatting.write_objects_inline;
             formatting.write_objects_inline = false;
-            obj.WriteJSON(ostr, formatting, true)
+            obj.WriteJSON(ostr, formatting);
             formatting.write_objects_inline = temp;
         }
         if(!is_last){ostr<<", ";}
