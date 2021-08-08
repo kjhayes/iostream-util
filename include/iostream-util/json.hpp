@@ -103,14 +103,18 @@ public:
             for(int i = 0; i < formatting.spacing; i++){ostr<<std::endl;}
             for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
             if(formatting.increase_array_element_depth){formatting.depth++;}
+            ostr<<"{";
             obj.WriteJSON(ostr, formatting);
+            ostr<<"}"
             if(formatting.increase_array_element_depth){formatting.depth--;}
             for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
         }
         else{
             bool temp = formatting.write_objects_inline;
             formatting.write_objects_inline = false;
+            ostr<<"{";
             obj.WriteJSON(ostr, formatting);
+            ostr<<"}";
             formatting.write_objects_inline = temp;
         }
         if(!is_last){ostr<<", ";}
