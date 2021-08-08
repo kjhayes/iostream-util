@@ -105,7 +105,7 @@ public:
             if(formatting.increase_array_element_depth){formatting.depth++;}
             ostr<<"{";
             obj.WriteJSON(ostr, formatting);
-            ostr<<"}"
+            ostr<<"}";
             if(formatting.increase_array_element_depth){formatting.depth--;}
             for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
         }

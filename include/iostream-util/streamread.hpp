@@ -9,7 +9,6 @@ namespace iou {
 inline uint8_t GetNextU8(std::istream& istr, std::ostream& err = std::cerr) {
     if(istr.eof()){err<<"iostream-util Error: Expected Atleast One More Byte But EOF Reached."<<std::endl; std::exit(1); return 0;}
     else{
-        last_read = istr.tellg();
         return istr.get();
     }
 }
