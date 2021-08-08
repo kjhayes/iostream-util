@@ -6,7 +6,7 @@
 namespace iou {
 class IBinaryWriteable {
 public:
-    virtual void WriteToBinaryStream(std::ostream& ostr) = 0;
+    virtual void WriteToBinaryStream(std::ostream& ostr) const = 0;
 };
 }
 
