@@ -22,6 +22,21 @@ public:
         if(!is_last){ostr<<", ";}
         if(!formatting.write_objects_inline){ostr<<std::endl;}
     }
+    static void WriteJSONObject(std::ostream& ostr, const char* name, IJSONWriteable* obj, JSONFormatting formatting, const bool& is_last = false) {
+        if(!formatting.write_objects_inline){
+            for(int i = 0; i < formatting.spacing; i++){ostr<<std::endl;}
+            for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
+        }
+        ostr<<"\""<<name<<"\": {";
+        if(!formatting.write_objects_inline){ostr<<std::endl;}
+        if(formatting.increase_object_element_depth){formatting.depth++;}
+        obj->WriteJSON(ostr, formatting);
+        if(formatting.increase_object_element_depth){formatting.depth--;}
+        for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
+        ostr<<"}";
+        if(!is_last){ostr<<", ";}
+        if(!formatting.write_objects_inline){ostr<<std::endl;}
+    }
     static void WriteJSONString(std::ostream& ostr, const char* name, const char* string, JSONFormatting formatting, const bool& is_last = false) {
         if(!formatting.write_objects_inline){
             for(int i = 0; i < formatting.spacing; i++){ostr<<std::endl;}
@@ -114,6 +129,28 @@ public:
             formatting.write_objects_inline = false;
             ostr<<"{";
             obj.WriteJSON(ostr, formatting);
+            ostr<<"}";
+            formatting.write_objects_inline = temp;
+        }
+        if(!is_last){ostr<<", ";}
+        if(!formatting.write_arrays_inline){ostr<<std::endl;}
+    }
+    static void WriteJSONArrayObject(std::ostream& ostr, IJSONWriteable* obj, JSONFormatting formatting, const bool& is_last = false) {
+        if(!formatting.write_arrays_inline){
+            for(int i = 0; i < formatting.spacing; i++){ostr<<std::endl;}
+            for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
+            if(formatting.increase_array_element_depth){formatting.depth++;}
+            ostr<<"{";
+            obj->WriteJSON(ostr, formatting);
+            ostr<<"}";
+            if(formatting.increase_array_element_depth){formatting.depth--;}
+            for(int i = 0; i < formatting.depth; i++){ostr<<"\t";}
+        }
+        else{
+            bool temp = formatting.write_objects_inline;
+            formatting.write_objects_inline = false;
+            ostr<<"{";
+            obj->WriteJSON(ostr, formatting);
             ostr<<"}";
             formatting.write_objects_inline = temp;
         }
