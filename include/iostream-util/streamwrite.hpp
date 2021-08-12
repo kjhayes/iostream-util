@@ -7,7 +7,7 @@
 namespace iou {
 
 inline void PutU8(std::ostream& ostr, const uint8_t& i) {
-    ostr.put(i);
+    ostr.write((char*)(&i), 1);
 }
 
 //Big Endian
